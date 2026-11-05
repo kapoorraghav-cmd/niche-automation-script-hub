@@ -1,0 +1,12 @@
+# Python packages needed for Niche Automation Script Hub
+# Install everything in this file with one command:
+#     pip install -r requirements.txt
+#
+# Or install only what a single tool needs — see README.md.
+
+# Image Compressor & Converter (image_compressor.py)
+Pillow>=10.0.0,<12
+
+# Spreadsheet Cleaner (excel_cleaner.py)
+pandas>=2.0.0,<3
+openpyxl>=3.1.0,<4

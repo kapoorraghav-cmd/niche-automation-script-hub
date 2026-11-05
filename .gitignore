@@ -1,0 +1,101 @@
+# ---------------------------------------------------------------------------
+# Niche Automation Script Hub — Python .gitignore
+# Keeps temporary files, caches, virtual environments, and user data
+# OUT of GitHub. Empty input/output folders stay in the repo via .gitkeep.
+# ---------------------------------------------------------------------------
+
+# --- Virtual environments (never upload these) ---
+.venv/
+venv/
+env/
+ENV/
+.env/
+.python-version
+
+# --- Secrets / local config (never upload these) ---
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+credentials.json
+secrets.json
+
+# --- Python cache & build artifacts ---
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+pip-log.txt
+pip-delete-this-directory.txt
+
+# --- Test / coverage / type checkers ---
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+.nox/
+.cache
+.mypy_cache/
+.ruff_cache/
+.dmypy.json
+dmypy.json
+.pytype/
+.pyre/
+
+# --- Jupyter notebooks checkpoints ---
+.ipynb_checkpoints/
+
+# --- OS junk ---
+.DS_Store
+.DS_Store?
+._*
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# --- Editors / IDEs ---
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# --- Tool input / output data (keep folders, ignore user files) ---
+# Image Compressor
+input_images/*
+!input_images/.gitkeep
+optimized_images/*
+!optimized_images/.gitkeep
+
+# Spreadsheet Cleaner
+input_spreadsheets/*
+!input_spreadsheets/.gitkeep
+cleaned_spreadsheets/*
+!cleaned_spreadsheets/.gitkeep
+
+# Extra safety: ignore common bulky media / spreadsheet dumps anywhere
+*.webp
+!docs/**/*.webp
+~$*
+*.tmp
+*.temp
