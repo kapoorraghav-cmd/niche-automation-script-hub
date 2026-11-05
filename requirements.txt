@@ -32,7 +32,7 @@ trafilatura>=2.0,<3
 # Background Remover (background_remover.py)
 # The picture model (~170 MB) is downloaded once on first use, not by pip.
 # onnxruntime is also used by the Scanned Document Reader (below).
-onnxruntime>=1.19,<2
+onnxruntime>=1.31.1,<2
 numpy>=1.24,<3
 
 # Scanned Document Reader (ocr_reader.py)
