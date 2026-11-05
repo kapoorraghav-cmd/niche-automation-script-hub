@@ -1,5 +1,9 @@
 # Niche Automation Script Hub
 
+[![Tests](https://github.com/kapoorraghav-cmd/niche-automation-script-hub/actions/workflows/tests.yml/badge.svg)](https://github.com/kapoorraghav-cmd/niche-automation-script-hub/actions/workflows/tests.yml)
+[![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue.svg)](https://www.python.org/downloads/)
+[![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+
 **Simple Python scripts that automate tedious office tasks — written for non-technical people.**
 
 No dashboards. No accounts. Each tool is one script you drop files into and run from your terminal.
@@ -204,12 +208,13 @@ pip3 install -r requirements.txt
 | **Pillow** | Image Compressor | Opens, compresses, and saves images |
 | **pandas** | Spreadsheet Cleaner | Reads tables; removes duplicates; fixes dates |
 | **openpyxl** | Spreadsheet Cleaner | Reads/writes modern Excel `.xlsx` files |
+| **xlrd** | Spreadsheet Cleaner | Reads older Excel `.xls` files |
 
 Only need one tool?
 
 ```bash
 pip install Pillow                 # images only
-pip install pandas openpyxl        # spreadsheets only
+pip install pandas openpyxl xlrd   # spreadsheets only
 ```
 
 Using `pip install -r requirements.txt` is the safest choice so every tool works.
@@ -236,7 +241,8 @@ python image_compressor.py
 
 ```text
 Compressing image 1 of 5: vacation.jpg ...
-   Done! 1.8 MB → 142.3 KB (WebP quality 80)
+   Done! 4.2 MB → 187.6 KB (WebP quality 72)
+   Resized from 4032 × 3024 to 2105 × 1579 pixels to fit under 200 KB.
    Saved as: vacation.webp — under 200 KB ✓
 ```
 
@@ -245,6 +251,14 @@ Compressing image 1 of 5: vacation.jpg ...
 Open `optimized_images/`. Every finished picture is a `.webp` file — smaller and still looking good for email, websites, and most office work.
 
 **Your originals in `input_images/` are never changed.**
+
+#### How it keeps pictures looking good
+
+1. It first lowers the WebP quality, but never below 60 (below that, photos start to look smudgy).
+2. Full-size phone photos (12 megapixels and up) can't reach 200 KB that way, so the tool then shrinks the width and height a little at a time. It never goes below 1280 pixels on the longest side, which still looks sharp on screens and in documents.
+3. If a picture still can't reach 200 KB (very detailed images sometimes can't), it keeps the best-looking small version and tells you.
+
+It also turns sideways phone photos the right way up, keeps transparent PNG backgrounds transparent, and keeps the original colors. Phone location (GPS) data is **not** copied into the new file.
 
 ---
 
@@ -272,6 +286,14 @@ python excel_cleaner.py
 2. Standardizes date-like columns to **`YYYY-MM-DD`** (example: `2024-03-15`).
 3. Saves a new file with `_cleaned` in the name. Originals are never overwritten.
 
+Everything else is kept exactly as you typed it:
+
+- ID numbers keep their leading zeros (`00123` stays `00123`).
+- Text like `N/A`, `null`, or `TBD` stays as typed instead of becoming blank.
+- Years, hours, and times of day (`2024`, `8.5`, `09:30`) are not mistaken for dates.
+- Every sheet in an Excel workbook is cleaned and kept, with the same sheet names.
+- CSV files saved by Excel on Windows (with `£` or `é` in them) open correctly.
+
 ```text
 Cleaning file 1 of 2: sales.xlsx ...
    Loaded 120 row(s) and 6 column(s).
@@ -294,9 +316,12 @@ Open `cleaned_spreadsheets/`:
 
 #### Date format notes
 
-- Output dates look like **`2024-03-15`** (year-month-day).
-- Columns named things like `Date`, `Order Date`, `DOB`, or `Deadline` are cleaned first.
+- Output dates look like **`2024-03-15`** (year-month-day). If a column also has times, they are kept: `2024-03-15 14:30`.
+- A value only counts as a date if it shows a year (like `2024` inside `15 Mar 2024`, or a short date like `15/03/24`).
+- Columns named things like `Date`, `Order Date`, `DOB`, or `Deadline` are cleaned when at least half their values are dates.
 - Other columns change only if almost all values clearly look like dates (so invoice numbers stay numbers).
+- Values in a date column that aren't dates (like `TBD`) are left as they are.
+- In Excel files, cleaned dates are saved as text so they always show as `YYYY-MM-DD`.
 - Ambiguous values like `01/02/2024` are read as **month/day/year** (US style). If your office uses day/month/year, spot-check a few rows.
 
 ---
@@ -307,10 +332,13 @@ Open `cleaned_spreadsheets/`:
 Niche Automation Script Hub/
 ├── README.md                  ← you are here (hub landing page)
 ├── requirements.txt           ← Python packages to install
+├── requirements-dev.txt       ← extra packages for running the tests
 ├── .gitignore                 ← keeps junk / user data off GitHub
 ├── LICENSE                    ← MIT license
 ├── image_compressor.py        ← Tool 1
 ├── excel_cleaner.py           ← Tool 2
+├── tests/                     ← automated checks for every tool
+├── .github/workflows/         ← runs the tests on GitHub after every change
 ├── input_images/              ← drop original JPG/PNG here
 ├── optimized_images/          ← finished .webp files appear here
 ├── input_spreadsheets/        ← drop original Excel/CSV here
@@ -338,11 +366,12 @@ Empty input/output folders are kept in Git with tiny `.gitkeep` files. Your real
 |---------|-------------|
 | `'python' is not recognized` | Reinstall Python and check **Add to PATH**. Or try `python3`. Open a **new** terminal after installing. |
 | `No module named 'PIL'` | `pip install Pillow` or `pip install -r requirements.txt` |
-| `No module named 'pandas'` | `pip install pandas openpyxl` or `pip install -r requirements.txt` |
+| `No module named 'pandas'` | `pip install pandas openpyxl xlrd` or `pip install -r requirements.txt` |
 | Error mentioning `openpyxl` | `pip install openpyxl` |
+| Error mentioning `xlrd` (old `.xls` files) | `pip install xlrd` |
 | No images found | Put `.jpg` / `.png` **directly** into `input_images/` |
 | No Excel/CSV found | Put `.xlsx` / `.xls` / `.csv` **directly** into `input_spreadsheets/` |
-| Image still over 200 KB | Some large photos can’t shrink further without looking bad; the tool stops at a safe quality floor |
+| Image still over 200 KB | Very detailed pictures sometimes can’t reach 200 KB without looking bad; the tool keeps the best-looking small version |
 | Dates look wrong (day/month swapped) | Source may use day-first dates — spot-check and fix those columns in Excel if needed |
 | PowerShell won’t activate `.venv` | `Set-ExecutionPolicy -Scope CurrentUser RemoteSigned` then activate again |
 | Permission / “access denied” | Close the file in Excel/Preview, then try again |
@@ -357,6 +386,18 @@ This hub is open source and meant to stay **simple**:
 - Heavy comments for beginners
 - Friendly terminal messages
 - No complicated frameworks unless truly needed
+- Every tool comes with automated tests
+
+### Running the tests
+
+The tests create sample photos and spreadsheets in a temporary folder, run each tool on them, and check the results. They never touch your own files.
+
+```bash
+pip install -r requirements-dev.txt
+python -m pytest
+```
+
+You should see a line like `28 passed`. The same tests run automatically on GitHub (Windows, Mac, and Linux) every time a change is pushed — that's what the green **Tests** badge at the top of this page shows.
 
 Ideas welcome: PDF renaming, email attachment sorting, file organizers, and more. Open an issue or pull request on GitHub.
 

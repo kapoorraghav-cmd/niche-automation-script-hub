@@ -1,0 +1,4 @@
+# Extra packages for running the automated tests (not needed to use the tools)
+#     pip install -r requirements-dev.txt
+-r requirements.txt
+pytest>=7.0,<9

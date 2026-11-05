@@ -16,7 +16,10 @@ How to run (after following README.md):
 # Imports — these are built-in Python tools, plus Pillow for image work
 # ---------------------------------------------------------------------------
 
+import io  # Lets us build a file in memory before saving it to disk
+import sys  # Gives access to the terminal output settings
 from pathlib import Path  # Easy, cross-platform file and folder paths
+from typing import NamedTuple, Optional
 
 # Pillow (installed via: pip install Pillow)
 # We import Image for opening/saving pictures, and ImageOps for safe orientation.
@@ -49,16 +52,21 @@ OUTPUT_FOLDER_NAME = "optimized_images"
 # Target maximum size in kilobytes (200 KB). The script will try hard to stay under this.
 TARGET_MAX_KB = 200
 
-# Starting quality for WebP (1–100). Higher = better looking, larger file.
-# We start high and lower it step by step if the file is still too big.
+# Best WebP quality we aim for (1–100). Higher = better looking, larger file.
 START_QUALITY = 85
 
-# Lowest quality we will accept before giving up on the 200 KB goal
-# (so we never crush the image into an ugly mess).
-MIN_QUALITY = 40
+# Lowest quality we will accept. Below this, photos start to look smudgy,
+# so instead of lowering quality further we make the picture a little smaller.
+MIN_QUALITY = 60
 
-# How much we reduce quality each try
-QUALITY_STEP = 5
+# Big photos (like 12-megapixel phone pictures) cannot reach 200 KB by
+# lowering quality alone. When that happens we shrink the width and height
+# step by step, but never below this many pixels on the longest side.
+# 1280 pixels still looks sharp in emails, documents, and on most screens.
+MIN_LONGEST_SIDE = 1280
+
+# How much to shrink on each step (0.85 = 85% of the original width/height)
+RESIZE_STEP = 0.85
 
 # File endings we accept as input (case-insensitive)
 ALLOWED_EXTENSIONS = {".jpg", ".jpeg", ".png"}
@@ -67,6 +75,16 @@ ALLOWED_EXTENSIONS = {".jpg", ".jpeg", ".png"}
 # ---------------------------------------------------------------------------
 # Helper functions
 # ---------------------------------------------------------------------------
+
+class CompressionResult(NamedTuple):
+    """Everything we learned while compressing one picture."""
+
+    data: bytes  # The finished .webp file, ready to save
+    quality: int  # WebP quality that was used
+    width: int  # Final width in pixels
+    height: int  # Final height in pixels
+    reached_target: bool  # True if the file is under TARGET_MAX_KB
+
 
 def format_size(num_bytes: int) -> str:
     """Turn a raw byte count into a friendly size like '142.3 KB'."""
@@ -107,7 +125,11 @@ def find_images(input_dir: Path) -> list[Path]:
     """Return a sorted list of JPG/PNG files inside the input folder (not subfolders)."""
     images = []
     for item in input_dir.iterdir():
-        # Skip folders and hidden files; only keep allowed image types
+        # Skip hidden files (names starting with ".") such as the "._photo.jpg"
+        # copies macOS leaves on USB drives — they are not real pictures.
+        if item.name.startswith("."):
+            continue
+        # Skip folders; only keep allowed image types
         if item.is_file() and item.suffix.lower() in ALLOWED_EXTENSIONS:
             images.append(item)
 
@@ -138,36 +160,98 @@ def prepare_image(img: Image.Image) -> Image.Image:
     return img
 
 
-def save_optimized_webp(img: Image.Image, destination: Path) -> tuple[int, int]:
+def encode_webp(
+    img: Image.Image, quality: int, icc_profile: Optional[bytes], method: int = 4
+) -> bytes:
     """
-    Save the image as WebP, lowering quality until under TARGET_MAX_KB if possible.
+    Turn a picture into .webp bytes in memory (nothing is written to disk yet).
 
-    Returns:
-        (final_quality_used, final_file_size_in_bytes)
+    method: 0–6. Higher = slower but slightly smaller files. We use the faster
+    setting (4) while searching for the right quality, and 6 for the final file.
+    """
+    buffer = io.BytesIO()
+    options = {"format": "WEBP", "quality": quality, "method": method}
+    # Keep the color profile so photos from modern phones don't look faded
+    if icc_profile:
+        options["icc_profile"] = icc_profile
+    img.save(buffer, **options)
+    return buffer.getvalue()
+
+
+def best_quality_that_fits(
+    img: Image.Image, target_bytes: int, icc_profile: Optional[bytes]
+) -> Optional[int]:
+    """
+    Find the highest quality (between MIN_QUALITY and START_QUALITY) that keeps
+    the file under the target size. Returns None if even MIN_QUALITY is too big.
+
+    Instead of trying every quality one by one, we use "binary search":
+    each try cuts the remaining range in half, so it only takes a few tries.
+    """
+    if len(encode_webp(img, START_QUALITY, icc_profile)) <= target_bytes:
+        return START_QUALITY
+    if len(encode_webp(img, MIN_QUALITY, icc_profile)) > target_bytes:
+        return None
+
+    low, high = MIN_QUALITY, START_QUALITY - 1  # "low" is known to fit
+    while low < high:
+        middle = (low + high + 1) // 2
+        if len(encode_webp(img, middle, icc_profile)) <= target_bytes:
+            low = middle  # fits — try a higher quality
+        else:
+            high = middle - 1  # too big — try a lower quality
+    return low
+
+
+def compress_to_webp(img: Image.Image) -> CompressionResult:
+    """
+    Compress a picture to WebP, aiming for under TARGET_MAX_KB.
+
+    Step 1: Try lowering the quality (but not below MIN_QUALITY).
+    Step 2: If it's still too big, shrink the picture a little and try again.
+    Step 3: If we hit MIN_LONGEST_SIDE and it's still too big, keep the
+            smallest version we made rather than ruining the picture.
     """
     target_bytes = TARGET_MAX_KB * 1024
-    quality = START_QUALITY
-    last_size = 0
+    icc_profile = img.info.get("icc_profile")
 
-    while quality >= MIN_QUALITY:
-        # method=6 = slower encode, better compression (worth it for office photos)
-        img.save(
-            destination,
-            format="WEBP",
-            quality=quality,
-            method=6,
-        )
-        last_size = destination.stat().st_size
+    current = img
+    scale = 1.0
 
-        if last_size <= target_bytes:
-            return quality, last_size
+    while True:
+        quality = best_quality_that_fits(current, target_bytes, icc_profile)
+        if quality is not None:
+            reached_target = True
+            break
 
-        # Still too big — try a lower quality next loop
-        quality -= QUALITY_STEP
+        # Work out the next, slightly smaller size
+        scale *= RESIZE_STEP
+        new_width = max(1, round(img.width * scale))
+        new_height = max(1, round(img.height * scale))
 
-    # Could not get under target without going below MIN_QUALITY.
-    # Keep the smallest file we produced at MIN_QUALITY.
-    return MIN_QUALITY, last_size
+        if max(new_width, new_height) < MIN_LONGEST_SIDE:
+            # Shrinking more would make the picture too small to be useful
+            quality = MIN_QUALITY
+            reached_target = False
+            break
+
+        # Always resize from the original so quality doesn't degrade each step.
+        # LANCZOS is a high-quality resizing method.
+        current = img.resize((new_width, new_height), Image.LANCZOS)
+
+    # Final save with the slower, better compression setting.
+    data = encode_webp(current, quality, icc_profile, method=6)
+    if reached_target and len(data) > target_bytes:
+        # Very rarely the "better" setting comes out bigger — use the faster one
+        data = encode_webp(current, quality, icc_profile, method=4)
+
+    return CompressionResult(
+        data=data,
+        quality=quality,
+        width=current.width,
+        height=current.height,
+        reached_target=reached_target,
+    )
 
 
 def choose_destination(source: Path, output_dir: Path, used_names: set[str]) -> Path:
@@ -205,17 +289,29 @@ def process_one_image(
     try:
         with Image.open(source) as img:
             prepared = prepare_image(img)
-            quality_used, new_size = save_optimized_webp(prepared, destination)
+            original_width, original_height = prepared.size
+            result = compress_to_webp(prepared)
 
-        # Friendly success line
-        under_target = new_size <= TARGET_MAX_KB * 1024
-        size_note = (
-            f"under {TARGET_MAX_KB} KB ✓"
-            if under_target
-            else f"could not reach {TARGET_MAX_KB} KB without hurting quality (kept quality ≥ {MIN_QUALITY})"
-        )
+        # Only write the file once everything worked, so a failure never
+        # leaves a half-finished file behind.
+        destination.write_bytes(result.data)
+        new_size = len(result.data)
 
-        print(f"   Done! {format_size(original_size)} → {format_size(new_size)} (WebP quality {quality_used})")
+        print(f"   Done! {format_size(original_size)} → {format_size(new_size)} (WebP quality {result.quality})")
+
+        if (result.width, result.height) != (original_width, original_height):
+            print(
+                f"   Resized from {original_width} × {original_height} to "
+                f"{result.width} × {result.height} pixels to fit under {TARGET_MAX_KB} KB."
+            )
+
+        if result.reached_target:
+            size_note = f"under {TARGET_MAX_KB} KB ✓"
+        else:
+            size_note = (
+                f"could not reach {TARGET_MAX_KB} KB without making the picture "
+                "too small or blurry, so we kept the best-looking small version"
+            )
         print(f"   Saved as: {destination.name} — {size_note}")
         print()
 
@@ -230,6 +326,11 @@ def process_one_image(
 # ---------------------------------------------------------------------------
 
 def main() -> None:
+    # Some Windows terminals can't display emoji. This swaps any symbol the
+    # terminal can't show for a "?" instead of crashing the script.
+    if hasattr(sys.stdout, "reconfigure"):
+        sys.stdout.reconfigure(errors="replace")
+
     print()
     print("=" * 60)
     print("  Niche Automation Script Hub")
