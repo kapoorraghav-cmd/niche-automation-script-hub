@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Setup help (README)
+    url: https://github.com/kapoorraghav-cmd/niche-automation-script-hub#5-complete-beginner-setup
+    about: Step-by-step instructions for installing Python and running the tools.

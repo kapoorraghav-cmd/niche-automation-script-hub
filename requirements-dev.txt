@@ -1,4 +1,7 @@
-# Extra packages for running the automated tests (not needed to use the tools)
+# Extra packages for running the automated tests and rebuilding screenshots
+# (not needed to use the tools)
 #     pip install -r requirements-dev.txt
 -r requirements.txt
 pytest>=7.0,<9
+fpdf2>=2.7.6,<3
+rich>=13.0,<16

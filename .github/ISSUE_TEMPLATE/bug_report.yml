@@ -1,0 +1,56 @@
+name: Something isn't working
+description: A tool crashed, gave a confusing message, or produced the wrong result.
+title: "Problem: "
+labels: ["bug"]
+body:
+  - type: dropdown
+    id: tool
+    attributes:
+      label: Which tool?
+      options:
+        - Image Compressor & Converter (image_compressor.py)
+        - Spreadsheet Cleaner (excel_cleaner.py)
+        - PDF Text & Image Extractor (pdf_extractor.py)
+        - Audio-to-Text Transcriber (audio_transcriber.py)
+        - Bulk File Renamer (bulk_renamer.py)
+        - Website-to-Markdown Scraper (web_scraper.py)
+        - Installing / setup
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened?
+      description: What did you expect, and what happened instead?
+    validations:
+      required: true
+  - type: textarea
+    id: output
+    attributes:
+      label: What did the terminal print?
+      description: Copy and paste everything the terminal showed. Remove any private file names first if you like.
+      render: text
+    validations:
+      required: false
+  - type: dropdown
+    id: os
+    attributes:
+      label: Your computer
+      options:
+        - Windows
+        - Mac
+        - Linux
+    validations:
+      required: true
+  - type: input
+    id: python
+    attributes:
+      label: Python version
+      description: Run `python --version` in the terminal and paste the result.
+      placeholder: Python 3.12.4
+    validations:
+      required: false
+  - type: markdown
+    attributes:
+      value: |
+        **Please don't attach private files** (personal photos, company spreadsheets, recordings). A small made-up example that shows the problem is perfect.

@@ -93,6 +93,27 @@ input_spreadsheets/*
 cleaned_spreadsheets/*
 !cleaned_spreadsheets/.gitkeep
 
+# PDF Text & Image Extractor
+input_pdfs/*
+!input_pdfs/.gitkeep
+extracted_pdfs/*
+!extracted_pdfs/.gitkeep
+
+# Audio-to-Text Transcriber
+input_audio/*
+!input_audio/.gitkeep
+transcripts/*
+!transcripts/.gitkeep
+
+# Bulk File Renamer
+files_to_rename/*
+!files_to_rename/.gitkeep
+
+# Website-to-Markdown Scraper (urls.txt is your personal reading list)
+scraped_articles/*
+!scraped_articles/.gitkeep
+urls.txt
+
 # Extra safety: ignore common bulky media / spreadsheet dumps anywhere
 *.webp
 !docs/**/*.webp
