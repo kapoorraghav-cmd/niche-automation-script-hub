@@ -7,7 +7,7 @@
 
 # Image Compressor & Converter (image_compressor.py)
 # Also used by the PDF Text & Image Extractor
-Pillow>=10.0.0,<13
+Pillow>=13.0.0,<14
 
 # Spreadsheet Cleaner (excel_cleaner.py)
 pandas>=2.0.0,<3
