@@ -607,7 +607,8 @@ def test_runs_from_the_terminal(workspace, ollama):
     assert result.returncode == 0, result.stderr
     assert "Tool: Meeting Notes Summarizer" in result.stdout
     assert "Summarising file 1 of 2: budget_review.txt" in result.stdout
-    assert "Skipped this file — the file is empty" in result.stdout
+    # Only plain-ASCII text is checked here: a Windows terminal may show "—" as "?"
+    assert "the file is empty, so there is nothing to summarise" in result.stdout
     assert "All done! Wrote notes for 1 of 2 transcript(s)." in result.stdout
     assert read_notes(workspace).startswith("# Meeting notes: Budget review\n")
     assert len(ollama.chat_requests) == 1

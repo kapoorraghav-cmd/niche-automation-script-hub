@@ -569,7 +569,8 @@ def test_runs_from_the_terminal(workspace):
     result = run_script("ocr_reader.py", workspace)
 
     assert result.returncode == 0, result.stderr
-    assert "Ready! (found on this computer — no internet needed)" in result.stdout
+    # Only plain-ASCII text is checked here: a Windows terminal may show "—" as "?"
+    assert "Ready! (found on this computer" in result.stdout
     assert "Reading page 2 of 2..." in result.stdout
     assert "All done!" in result.stdout
     assert text_lines(read_result(workspace, "permit.txt")) == ["parking permit", "valid until june"]
