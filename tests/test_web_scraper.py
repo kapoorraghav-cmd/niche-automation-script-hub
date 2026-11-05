@@ -127,18 +127,34 @@ def test_file_starts_with_title_source_date_and_author(workspace, monkeypatch, s
     assert lines.count(f"# {TITLE}") == 1
 
 
-def test_no_text_is_lost_on_pages_that_break_link_keeping(workspace, monkeypatch, server, capsys):
+def test_no_text_is_lost_on_wikipedia_style_pages(workspace, monkeypatch, server):
     run_with_links(monkeypatch, f"{server}/wiki/Garden_snail")
 
     text = read_article(workspace, "Garden snail.md")
     assert text.startswith("# Garden snail\n")
-    # The end of every sentence survives (trafilatura drops these when keeping links)
-    assert "protects its foot from sharp stones." in text
-    assert "keeps moisture inside until conditions improve again." in text
+    # Older trafilatura versions cut off sentence endings when keeping links;
+    # whichever version is installed, every sentence must survive.
+    readable = web_scraper.MARKDOWN_LINK.sub(r"\1", text)
+    assert "protects its foot from sharp stones." in readable
+    assert "keeps moisture inside until conditions improve again." in readable
     assert "## Behaviour" in text
     assert "edit]" not in text
     assert "Random article" not in text
-    assert "links were left out" in capsys.readouterr().out
+
+
+def test_links_are_dropped_when_keeping_them_would_lose_words(monkeypatch):
+    full = "The garden snail moves on mucus that protects its foot from sharp stones."
+    damaged = "The garden snail moves on [mucus](https://example.com/mucus)"
+
+    def fake_extract(page, url, include_links):
+        return damaged if include_links else full
+
+    monkeypatch.setattr(web_scraper, "extract_markdown", fake_extract)
+
+    markdown, links_kept = web_scraper.best_markdown(None, "https://example.com")
+
+    assert markdown == full
+    assert links_kept is False
 
 
 def test_links_are_kept_when_nothing_is_lost(workspace, monkeypatch, server, capsys):

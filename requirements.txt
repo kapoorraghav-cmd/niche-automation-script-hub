@@ -20,8 +20,11 @@ pypdf>=4.0,<7
 # cryptography>=3.1
 
 # Audio-to-Text Transcriber (audio_transcriber.py)
-# Includes its own audio reader, so ffmpeg is not needed
+# Includes its own audio reader (av), so ffmpeg is not needed.
+# Newer versions of av removed an option faster-whisper still uses, so av is
+# capped at the last version known to work with it.
 faster-whisper>=1.1,<2
+av>=11,<16
 
 # Website-to-Markdown Scraper (web_scraper.py)
 trafilatura>=2.0,<3

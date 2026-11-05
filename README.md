@@ -325,7 +325,7 @@ pip install -r requirements-dev.txt
 python -m pytest
 ```
 
-You should see a line like `129 passed`. The same tests run automatically on GitHub (Windows, Mac, and Linux) every time a change is pushed — that's what the green **Tests** badge at the top of this page shows.
+You should see a line like `130 passed`. The same tests run automatically on GitHub (Windows, Mac, and Linux) every time a change is pushed — that's what the green **Tests** badge at the top of this page shows.
 
 To rebuild the screenshots after changing a tool's messages: `python docs/make_screenshots.py`
 
