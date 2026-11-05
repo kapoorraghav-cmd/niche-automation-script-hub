@@ -22,7 +22,7 @@ python image_compressor.py
 
 ### 3. Watch the progress
 
-![Terminal output of the Image Compressor](../screenshots/image_compressor.svg)
+![Terminal output of the Image Compressor](../gifs/image_compressor.gif)
 
 ### 4. Get your finished files
 

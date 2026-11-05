@@ -22,7 +22,7 @@ python bulk_renamer.py
 
 ### 3. Type a base name, check the preview, confirm
 
-![Terminal session of the Bulk File Renamer](../screenshots/bulk_renamer.svg)
+![Terminal session of the Bulk File Renamer](../gifs/renamer.gif)
 
 Typing anything other than `y` cancels, and nothing is changed.
 

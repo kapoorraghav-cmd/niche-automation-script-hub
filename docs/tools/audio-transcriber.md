@@ -26,7 +26,7 @@ python audio_transcriber.py
 
 ### 3. Watch the progress
 
-![Terminal output of the Audio Transcriber](../screenshots/audio_transcriber.svg)
+![Terminal output of the Audio Transcriber](../gifs/audio_transcriber.gif)
 
 The **first time** you run it, it downloads the speech model (about 145 MB) — this needs internet and can take a few minutes. After that it works offline.
 

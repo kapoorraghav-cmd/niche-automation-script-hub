@@ -30,11 +30,11 @@
 
   <text x="80" y="140" class="title">Niche Automation Script Hub</text>
   <text x="80" y="184" class="sub">Simple Python scripts that automate tedious office tasks.</text>
-  <text x="80" y="216" class="sub">Drop your files in a folder, run one command, done.</text>
+  <text x="80" y="216" class="sub">13 free tools. Double-click, pick a tool, done. Nothing is uploaded.</text>
 
   <!-- Tool chips -->
   <g transform="translate(80 258)">
-    <g>
+    <g transform="translate(0 0)">
       <rect width="168" height="44" rx="22" fill="#ffffff" fill-opacity="0.07" stroke="#38bdf8" stroke-opacity="0.5"/>
       <circle cx="24" cy="22" r="6" fill="#38bdf8"/>
       <text x="40" y="28" class="chip">Images</text>
@@ -45,22 +45,22 @@
       <text x="40" y="28" class="chip">Spreadsheets</text>
     </g>
     <g transform="translate(382 0)">
-      <rect width="130" height="44" rx="22" fill="#ffffff" fill-opacity="0.07" stroke="#f472b6" stroke-opacity="0.5"/>
+      <rect width="186" height="44" rx="22" fill="#ffffff" fill-opacity="0.07" stroke="#f472b6" stroke-opacity="0.5"/>
       <circle cx="24" cy="22" r="6" fill="#f472b6"/>
-      <text x="40" y="28" class="chip">PDFs</text>
+      <text x="40" y="28" class="chip">PDFs &amp; scans</text>
     </g>
-    <g transform="translate(524 0)">
-      <rect width="138" height="44" rx="22" fill="#ffffff" fill-opacity="0.07" stroke="#fbbf24" stroke-opacity="0.5"/>
+    <g transform="translate(580 0)">
+      <rect width="192" height="44" rx="22" fill="#ffffff" fill-opacity="0.07" stroke="#fbbf24" stroke-opacity="0.5"/>
       <circle cx="24" cy="22" r="6" fill="#fbbf24"/>
-      <text x="40" y="28" class="chip">Audio</text>
+      <text x="40" y="28" class="chip">Audio &amp; video</text>
     </g>
-    <g transform="translate(674 0)">
-      <rect width="170" height="44" rx="22" fill="#ffffff" fill-opacity="0.07" stroke="#a78bfa" stroke-opacity="0.5"/>
+    <g transform="translate(784 0)">
+      <rect width="118" height="44" rx="22" fill="#ffffff" fill-opacity="0.07" stroke="#a78bfa" stroke-opacity="0.5"/>
       <circle cx="24" cy="22" r="6" fill="#a78bfa"/>
-      <text x="40" y="28" class="chip">File names</text>
+      <text x="40" y="28" class="chip">Files</text>
     </g>
-    <g transform="translate(856 0)">
-      <rect width="170" height="44" rx="22" fill="#ffffff" fill-opacity="0.07" stroke="#fb923c" stroke-opacity="0.5"/>
+    <g transform="translate(914 0)">
+      <rect width="166" height="44" rx="22" fill="#ffffff" fill-opacity="0.07" stroke="#fb923c" stroke-opacity="0.5"/>
       <circle cx="24" cy="22" r="6" fill="#fb923c"/>
       <text x="40" y="28" class="chip">Web pages</text>
     </g>

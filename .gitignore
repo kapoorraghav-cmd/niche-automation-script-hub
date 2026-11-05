@@ -114,7 +114,48 @@ scraped_articles/*
 !scraped_articles/.gitkeep
 urls.txt
 
-# Extra safety: ignore common bulky media / spreadsheet dumps anywhere
+# Background Remover
+input_photos/*
+!input_photos/.gitkeep
+no_background/*
+!no_background/.gitkeep
+
+# Scanned Document Reader (OCR)
+input_scans/*
+!input_scans/.gitkeep
+scanned_text/*
+!scanned_text/.gitkeep
+
+# Mail-Merge Certificates & Letters (example files are created on first run)
+mail_merge/*
+!mail_merge/.gitkeep
+merged_documents/*
+!merged_documents/.gitkeep
+
+# Spreadsheet Merger
+spreadsheets_to_merge/*
+!spreadsheets_to_merge/.gitkeep
+merged_spreadsheets/*
+!merged_spreadsheets/.gitkeep
+
+# Video Subtitle Maker
+input_videos/*
+!input_videos/.gitkeep
+subtitles/*
+!subtitles/.gitkeep
+
+# Meeting Notes Summarizer (reads transcripts/, above)
+meeting_notes/*
+!meeting_notes/.gitkeep
+
+# Duplicate File Finder
+files_to_check/*
+!files_to_check/.gitkeep
+duplicates_review/
+duplicates_report.csv
+.duplicates_last_run.txt
+
+# Demo GIFs are kept (they're small); ignore other bulky media / dumps anywhere
 *.webp
 !docs/**/*.webp
 ~$*

@@ -28,3 +28,26 @@ av>=11,<16
 
 # Website-to-Markdown Scraper (web_scraper.py)
 trafilatura>=2.0,<3
+
+# Background Remover (background_remover.py)
+# The picture model (~170 MB) is downloaded once on first use, not by pip.
+# onnxruntime is also used by the Scanned Document Reader (below).
+onnxruntime>=1.19,<2
+numpy>=1.24,<3
+
+# Scanned Document Reader (ocr_reader.py)
+# The text model (about 32 MB) comes inside the rapidocr package.
+# Also uses onnxruntime, pypdf and Pillow (listed above).
+rapidocr>=3.10,<4
+pypdfium2>=5,<6
+
+# Mail-Merge Certificates & Letters (mail_merge.py)
+# Also uses pandas, openpyxl and xlrd (above). COMBINE_INTO_ONE_PDF uses pypdf (above).
+# docxtpl is capped because the tool builds on its template-reading steps.
+docxtpl>=0.20,<0.21
+python-docx>=1.1,<2
+
+# Video Subtitle Maker (video_subtitles.py) uses faster-whisper and av (above).
+# Spreadsheet Merger (spreadsheet_merger.py) uses pandas, openpyxl and xlrd (above).
+# Meeting Notes Summarizer (meeting_summarizer.py) needs nothing extra from pip,
+# but uses the free Ollama app: https://ollama.com

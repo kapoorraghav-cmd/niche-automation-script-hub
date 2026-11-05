@@ -8,11 +8,19 @@ body:
     attributes:
       label: Which tool?
       options:
+        - Start-here menu / double-click launchers (start.py)
         - Image Compressor & Converter (image_compressor.py)
-        - Spreadsheet Cleaner (excel_cleaner.py)
+        - Background Remover (background_remover.py)
         - PDF Text & Image Extractor (pdf_extractor.py)
+        - Scanned Document Reader (ocr_reader.py)
+        - Mail-Merge Certificates & Letters (mail_merge.py)
+        - Spreadsheet Cleaner (excel_cleaner.py)
+        - Spreadsheet Merger (spreadsheet_merger.py)
         - Audio-to-Text Transcriber (audio_transcriber.py)
+        - Video Subtitle Maker (video_subtitles.py)
+        - Meeting Notes Summarizer (meeting_summarizer.py)
         - Bulk File Renamer (bulk_renamer.py)
+        - Duplicate File Finder (duplicate_finder.py)
         - Website-to-Markdown Scraper (web_scraper.py)
         - Installing / setup
     validations:

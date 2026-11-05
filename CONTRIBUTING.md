@@ -13,14 +13,14 @@ Thanks for wanting to help! This hub exists for people who don't write code, so 
 
 Each tool is one Python script that does one job. To match the existing tools, a new script should:
 
-1. **Never change the user's originals** — read from an input folder, write to an output folder. (The Bulk File Renamer is the one exception, and it previews every change, asks first, and can undo.)
+1. **Never change the user's originals** — read from an input folder, write to an output folder. (The Bulk File Renamer and Duplicate File Finder are the exceptions: they preview every change, ask first, never delete, and can undo.)
 2. **Explain itself** — heavy plain-English comments, a docstring at the top, and settings grouped under "Settings you can tweak later".
 3. **Talk to the user** — friendly progress messages (`Doing thing 1 of 5 ...`, `Done!`), and clear next steps when something is missing.
 4. **Keep going** — one broken file prints a warning and the rest of the batch still runs.
 5. **Fail kindly** — if a library is missing, print the exact `pip install ...` command.
 6. **Work everywhere** — Windows, macOS, and Linux, Python 3.10 or newer.
 7. **Come with tests** — in `tests/test_<tool>.py`, using sample files created in a temporary folder. Tests must not need the internet (except a model download that's clearly marked).
-8. **Have a guide** — a page in `docs/tools/` and a row in the README's *Active scripts* table.
+8. **Have a guide** — a page in `docs/tools/`, a row in the README's tools table, an entry in the `start.py` menu, and a screenshot function in `docs/make_screenshots.py`.
 
 ## Running the tests
 

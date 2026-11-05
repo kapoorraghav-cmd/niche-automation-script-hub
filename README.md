@@ -3,56 +3,107 @@
 </p>
 
 <p align="center">
+  <a href="https://github.com/kapoorraghav-cmd/niche-automation-script-hub/releases/latest"><img src="https://img.shields.io/github/v/release/kapoorraghav-cmd/niche-automation-script-hub?label=download&color=34d399" alt="Download the latest version"></a>
   <a href="https://github.com/kapoorraghav-cmd/niche-automation-script-hub/actions/workflows/tests.yml"><img src="https://github.com/kapoorraghav-cmd/niche-automation-script-hub/actions/workflows/tests.yml/badge.svg" alt="Tests"></a>
   <a href="https://www.python.org/downloads/"><img src="https://img.shields.io/badge/python-3.10%2B-blue.svg" alt="Python 3.10+"></a>
   <img src="https://img.shields.io/badge/works%20on-Windows%20%7C%20macOS%20%7C%20Linux-informational.svg" alt="Works on Windows, macOS and Linux">
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-green.svg" alt="License: MIT"></a>
 </p>
 
-**Simple Python scripts that automate tedious office tasks — written for people who don't write code.**
+<h3 align="center">13 free tools that automate boring office work — and never upload your files.</h3>
 
-No dashboards. No accounts. No uploads. Each tool is one script: drop your files in a folder, run one command, and collect the results.
+<p align="center">
+  <a href="https://github.com/kapoorraghav-cmd/niche-automation-script-hub/releases/latest"><b>⬇️ Download</b></a> ·
+  <a href="#4-start-here-no-terminal-needed"><b>▶️ Start here</b></a> ·
+  <a href="#2-the-tools"><b>🧰 See all tools</b></a> ·
+  <a href="#7-faq"><b>❓ FAQ</b></a>
+</p>
+
+Compress photos, remove backgrounds, read scanned documents, mail-merge certificates, clean and merge spreadsheets, transcribe meetings, make subtitles, summarize meetings, find duplicate files, and more. **Double-click to start, pick a tool from the menu, done** — no coding, no accounts, no subscriptions.
+
+<p align="center">
+  <img src="docs/gifs/start_menu.gif" alt="The Start-here menu: pick a tool, drop your files in, done" width="90%">
+</p>
 
 ---
 
 ## Table of contents
 
-1. [Why this hub exists](#1-why-this-hub-exists)
+1. [Why not just use a website?](#1-why-not-just-use-a-website)
 2. [The tools](#2-the-tools)
 3. [See it in action](#3-see-it-in-action)
-4. [Quick start](#4-quick-start)
-5. [Complete beginner setup](#5-complete-beginner-setup)
+4. [Start here (no terminal needed)](#4-start-here-no-terminal-needed)
+5. [Complete beginner setup (terminal)](#5-complete-beginner-setup-terminal)
 6. [Using any tool](#6-using-any-tool)
-7. [Project folder layout](#7-project-folder-layout)
-8. [Safe tips for non-developers](#8-safe-tips-for-non-developers)
-9. [Troubleshooting](#9-troubleshooting)
-10. [Contributing](#10-contributing)
-11. [License](#11-license)
+7. [FAQ](#7-faq)
+8. [Project folder layout](#8-project-folder-layout)
+9. [Safe tips for non-developers](#9-safe-tips-for-non-developers)
+10. [Troubleshooting](#10-troubleshooting)
+11. [Contributing](#11-contributing)
+12. [License](#12-license)
 
 ---
 
-## 1. Why this hub exists
+## 1. Why not just use a website?
 
-Office work is full of repetitive chores: shrinking photo attachments, cleaning messy spreadsheets, copying text out of PDFs, typing up meeting notes, renaming hundreds of files. This repository collects **small, separate scripts** so you can:
+There are websites for most of these jobs. Here's why this hub is different:
 
-- Use only the tool you need
-- Read the code — it is heavily commented on purpose
-- Trust your files: originals are never overwritten, and nothing is uploaded anywhere (the web scraper only downloads the pages you ask for)
+| | Typical "free" online tool | Niche Automation Script Hub |
+|---|---|---|
+| 🔒 **Your files** | Uploaded to someone else's server | Stay on your computer |
+| 💷 **Cost** | Free trial, then a subscription | Free forever (MIT license) |
+| 📦 **Limits** | File-size caps, a few files per day | No limits — whole folders at once |
+| 📴 **Offline** | Needs internet for everything | Works offline after a one-time setup* |
+| 🙈 **Ads & sign-ups** | Usually | Never |
+| 🔍 **Transparency** | Closed | Every line of code is readable and commented |
 
-If you have never used Python before, start at [Complete beginner setup](#5-complete-beginner-setup).
+\* *The web scraper needs internet to fetch the pages you ask for, and the AI tools download their models once.*
+
+This matters most for the files offices actually handle: contracts, payroll spreadsheets, customer lists, meeting recordings, ID photos.
 
 ---
 
 ## 2. The tools
 
-| Tool | Run this | What it does | Guide |
-|------|----------|--------------|-------|
-| 🖼️ **Image Compressor & Converter** | `python image_compressor.py` | Shrinks JPG/PNG photos to modern `.webp` files under ~200 KB that still look great | [Guide](docs/tools/image-compressor.md) |
-| 📊 **Spreadsheet Cleaner** | `python excel_cleaner.py` | Removes duplicate rows and standardizes dates to `YYYY-MM-DD` in Excel and CSV files | [Guide](docs/tools/spreadsheet-cleaner.md) |
-| 📄 **PDF Text & Image Extractor** | `python pdf_extractor.py` | Pulls all the text out of PDFs into `.txt` files and saves every picture inside them | [Guide](docs/tools/pdf-extractor.md) |
-| 🎙️ **Audio-to-Text Transcriber** | `python audio_transcriber.py` | Turns meeting recordings and voice memos into written transcripts, privately on your computer | [Guide](docs/tools/audio-transcriber.md) |
-| 🏷️ **Bulk File Renamer** | `python bulk_renamer.py` | Renames hundreds of files like `DCIM_00412.jpg` to `Project_Photos_001.jpg`, with preview and undo | [Guide](docs/tools/bulk-renamer.md) |
-| 🌐 **Website-to-Markdown Scraper** | `python web_scraper.py` | Saves web articles as clean Markdown files, without the ads, menus, and pop-ups | [Guide](docs/tools/web-scraper.md) |
+**Pictures**
+
+| Tool | What it does | Guide |
+|------|--------------|-------|
+| 🖼️ **Image Compressor & Converter** | Shrinks JPG/PNG photos to modern `.webp` files under ~200 KB that still look great | [Guide](docs/tools/image-compressor.md) |
+| ✂️ **Background Remover** | Cuts the background out of product photos, headshots and ID photos — transparent or white | [Guide](docs/tools/background-remover.md) |
+
+**Documents**
+
+| Tool | What it does | Guide |
+|------|--------------|-------|
+| 📄 **PDF Text & Image Extractor** | Pulls all the text out of PDFs into `.txt` files and saves every picture inside them | [Guide](docs/tools/pdf-extractor.md) |
+| 🔎 **Scanned Document Reader (OCR)** | Reads the words in scanned PDFs, photos of receipts and letters, and screenshots | [Guide](docs/tools/ocr-reader.md) |
+| ✉️ **Mail-Merge Certificates & Letters** | A Word template + a spreadsheet → one personalised Word/PDF document per person | [Guide](docs/tools/mail-merge.md) |
+
+**Spreadsheets**
+
+| Tool | What it does | Guide |
+|------|--------------|-------|
+| 📊 **Spreadsheet Cleaner** | Removes duplicate rows and standardizes messy dates to `YYYY-MM-DD` | [Guide](docs/tools/spreadsheet-cleaner.md) |
+| 🧩 **Spreadsheet Merger** | Combines dozens of Excel/CSV files into one, even when column names differ slightly | [Guide](docs/tools/spreadsheet-merger.md) |
+
+**Audio, video & meetings**
+
+| Tool | What it does | Guide |
+|------|--------------|-------|
+| 🎙️ **Audio-to-Text Transcriber** | Turns meeting recordings and voice memos into written transcripts | [Guide](docs/tools/audio-transcriber.md) |
+| 🎬 **Video Subtitle Maker** | Creates `.srt` and `.vtt` subtitle files for your videos | [Guide](docs/tools/video-subtitles.md) |
+| 📝 **Meeting Notes Summarizer** | Turns transcripts into a summary, decisions and an action-item table — using local AI | [Guide](docs/tools/meeting-summarizer.md) |
+
+**Files & web**
+
+| Tool | What it does | Guide |
+|------|--------------|-------|
+| 🏷️ **Bulk File Renamer** | Renames hundreds of files like `DCIM_00412.jpg` to `Project_Photos_001.jpg`, with preview and undo | [Guide](docs/tools/bulk-renamer.md) |
+| 🗂️ **Duplicate File Finder** | Finds duplicate files and similar photos, and moves the extra copies aside (never deletes) | [Guide](docs/tools/duplicate-finder.md) |
+| 🌐 **Website-to-Markdown Scraper** | Saves web articles as clean Markdown files, without the ads, menus and pop-ups | [Guide](docs/tools/web-scraper.md) |
+
+The AI-powered tools (speech, background removal, text reading, meeting notes) run **locally** — the models run on your own computer, not in the cloud.
 
 ---
 
@@ -62,41 +113,49 @@ If you have never used Python before, start at [Complete beginner setup](#5-comp
 
 ![Before and after: a 938 KB photo becomes a 192 KB WebP](docs/assets/image_before_after.jpg)
 
+**Background Remover** — one click, transparent background:
+
+![Before and after: background removed](docs/assets/background_before_after.jpg)
+
+**Mail-Merge** — one spreadsheet row, one finished certificate:
+
+<p align="center"><img src="docs/assets/mail_merge_example.png" alt="A finished certificate made by the Mail-Merge tool" width="70%"></p>
+
 **Spreadsheet Cleaner** — duplicate rows removed, four different date styles standardized:
 
 ![Before and after: duplicates removed and dates standardized](docs/screenshots/excel_cleaner_before_after.svg)
 
 **Bulk File Renamer** — preview, confirm, done (and `--undo` if you change your mind):
 
-![Terminal session of the Bulk File Renamer](docs/screenshots/bulk_renamer.svg)
+![Bulk File Renamer demo](docs/gifs/renamer.gif)
 
-More screenshots are in each tool's guide.
-
----
-
-## 4. Quick start
-
-Already comfortable with Python? From the project folder:
-
-```bash
-python -m venv .venv
-source .venv/bin/activate          # Windows: .venv\Scripts\activate
-pip install -r requirements.txt
-```
-
-Then put your files in the tool's folder and run it, for example:
-
-```bash
-python image_compressor.py         # photos go in input_images/
-```
-
-New to all of this? The next section walks through every click.
+Every tool's guide has more screenshots, all made from real runs.
 
 ---
 
-## 5. Complete beginner setup
+## 4. Start here (no terminal needed)
 
-Follow the section for **your** computer. Take your time — each step is written for someone who has never used Python. You only do this once.
+1. **Install Python** (one time) — see [Step A](#step-a--install-python) below. On Windows, tick **"Add python.exe to PATH"**.
+2. **Download the hub** — click [⬇️ Download](https://github.com/kapoorraghav-cmd/niche-automation-script-hub/releases/latest), then the `.zip` file under *Assets*. Unzip it somewhere easy, like your Desktop.
+3. **Double-click the launcher** inside the folder:
+
+   | Your computer | Double-click |
+   |---|---|
+   | Windows | `Start (Windows).bat` |
+   | Mac | `Start (Mac).command` |
+   | Linux | `start.sh` (or run `./start.sh`) |
+
+4. **Pick a tool** from the menu. It installs what that tool needs (first time only), opens the folder for your files, runs the tool, and offers to open the results.
+
+> **"Windows protected your PC"?** Click **More info → Run anyway**. Windows sometimes shows this for scripts downloaded from the internet.
+>
+> **Mac says it "can't be opened"?** Right-click the file → **Open** → **Open**. On newer macOS versions, go to **System Settings → Privacy & Security** and click **Open Anyway**. You only need to do this once.
+
+---
+
+## 5. Complete beginner setup (terminal)
+
+Prefer typing commands, or the launcher didn't work? Follow the section for **your** computer. Take your time — each step is written for someone who has never used Python. You only do this once.
 
 ### Step A — Install Python
 
@@ -155,7 +214,7 @@ You should see something like `Python 3.12.x` (any 3.10+ is fine).
 
 ### Step C — Get this project onto your computer
 
-**Easiest:** on this page, click the green **Code** button → **Download ZIP**. Unzip it and put the folder somewhere easy to find (for example your Desktop).
+**Easiest:** download the `.zip` from the [latest release](https://github.com/kapoorraghav-cmd/niche-automation-script-hub/releases/latest), unzip it, and put the folder somewhere easy to find (for example your Desktop).
 
 **If you use Git:**
 
@@ -169,18 +228,18 @@ cd niche-automation-script-hub
 #### Windows (Command Prompt)
 
 ```bash
-cd Desktop\niche-automation-script-hub-main
+cd Desktop\niche-automation-script-hub
 ```
 
 #### Mac / Linux
 
 ```bash
-cd ~/Desktop/niche-automation-script-hub-main
+cd ~/Desktop/niche-automation-script-hub
 ```
 
 (Use your folder's real name. Tip: type `cd ` with a space, then drag the folder onto the terminal window and press Enter.)
 
-Check you’re in the right place (`ls` on Mac/Linux, `dir` on Windows). You should see files like `image_compressor.py`, `requirements.txt`, and `README.md`.
+Check you’re in the right place (`ls` on Mac/Linux, `dir` on Windows). You should see files like `start.py`, `requirements.txt`, and `README.md`.
 
 ### Step E — Create a virtual environment (recommended)
 
@@ -206,131 +265,210 @@ Set-ExecutionPolicy -Scope CurrentUser RemoteSigned
 
 You should see `(.venv)` at the start of your terminal line when it worked. **Activate it again each time you open a new terminal.**
 
-### Step F — Install the required libraries
+### Step F — Install the libraries, then start
+
+The simplest option is to start the menu, which installs each tool's libraries the first time you use it:
+
+```bash
+python start.py
+```
+
+Or install everything at once (about 1–2 GB, as the AI tools use large libraries):
 
 ```bash
 pip install -r requirements.txt
 ```
 
-Fallbacks if needed:
-
-```bash
-python -m pip install -r requirements.txt
-# or
-pip3 install -r requirements.txt
-```
-
-This installs everything all six tools need (a few hundred MB). Only want one tool? Install just its libraries instead:
+Or just one tool's libraries:
 
 | Tool | Command |
 |------|---------|
 | Image Compressor | `pip install Pillow` |
-| Spreadsheet Cleaner | `pip install pandas openpyxl xlrd` |
+| Background Remover | `pip install onnxruntime numpy Pillow` |
 | PDF Extractor | `pip install pypdf Pillow` |
-| Audio Transcriber | `pip install faster-whisper` |
-| Bulk File Renamer | *nothing — it's built into Python* |
+| Scanned Document Reader | `pip install rapidocr onnxruntime pypdfium2 pypdf Pillow` |
+| Mail-Merge | `pip install docxtpl pandas openpyxl xlrd` |
+| Spreadsheet Cleaner / Merger | `pip install pandas openpyxl xlrd` |
+| Audio Transcriber / Video Subtitles | `pip install faster-whisper "av<16"` |
+| Meeting Notes Summarizer | *nothing from pip* — install the free [Ollama](https://ollama.com) app |
+| Bulk File Renamer | *nothing — built into Python* |
+| Duplicate File Finder | `pip install Pillow` (optional, for similar photos) |
 | Web Scraper | `pip install trafilatura` |
 
 ---
 
 ## 6. Using any tool
 
-Every tool works the same way:
+Every tool works the same way — whether you use the menu or type `python <tool>.py`:
 
 1. **Run it once** — it creates its input folder and tells you what to put there.
 2. **Drop your files in** that folder.
 3. **Run it again** and watch the friendly progress messages.
 4. **Collect the results** from its output folder.
 
-| Tool | Put files in | Results appear in |
-|------|-------------|-------------------|
-| Image Compressor | `input_images/` | `optimized_images/` |
-| Spreadsheet Cleaner | `input_spreadsheets/` | `cleaned_spreadsheets/` |
-| PDF Extractor | `input_pdfs/` | `extracted_pdfs/` |
-| Audio Transcriber | `input_audio/` | `transcripts/` |
-| Bulk File Renamer | `files_to_rename/` | *renamed in place, with undo* |
-| Web Scraper | links in `urls.txt` (or typed in) | `scraped_articles/` |
+| Tool | Run | Put files in | Results appear in |
+|------|-----|-------------|-------------------|
+| Image Compressor | `python image_compressor.py` | `input_images/` | `optimized_images/` |
+| Background Remover | `python background_remover.py` | `input_photos/` | `no_background/` |
+| PDF Extractor | `python pdf_extractor.py` | `input_pdfs/` | `extracted_pdfs/` |
+| Scanned Document Reader | `python ocr_reader.py` | `input_scans/` | `scanned_text/` |
+| Mail-Merge | `python mail_merge.py` | `mail_merge/` (template + spreadsheet) | `merged_documents/` |
+| Spreadsheet Cleaner | `python excel_cleaner.py` | `input_spreadsheets/` | `cleaned_spreadsheets/` |
+| Spreadsheet Merger | `python spreadsheet_merger.py` | `spreadsheets_to_merge/` | `merged_spreadsheets/` |
+| Audio Transcriber | `python audio_transcriber.py` | `input_audio/` | `transcripts/` |
+| Video Subtitle Maker | `python video_subtitles.py` | `input_videos/` | `subtitles/` |
+| Meeting Notes Summarizer | `python meeting_summarizer.py` | `transcripts/` | `meeting_notes/` |
+| Bulk File Renamer | `python bulk_renamer.py` | `files_to_rename/` | *renamed in place, with undo* |
+| Duplicate File Finder | `python duplicate_finder.py` | `files_to_check/` (or any folder) | `duplicates_review/` |
+| Web Scraper | `python web_scraper.py` | links in `urls.txt` (or typed in) | `scraped_articles/` |
 
 Each [tool guide](#2-the-tools) explains its options, what it changes, and what it leaves alone.
 
 ---
 
-## 7. Project folder layout
+## 7. FAQ
+
+<details>
+<summary><b>Do I need to know how to code?</b></summary>
+
+No. Install Python once, double-click the launcher, and pick tools from a numbered menu. The code is there if you're curious — every script is heavily commented in plain English — but you never have to touch it.
+</details>
+
+<details>
+<summary><b>Is it really free?</b></summary>
+
+Yes. The hub is open source under the MIT license, and every library and model it uses is free. The Meeting Notes Summarizer uses [Ollama](https://ollama.com), which is also free. There are no trials, accounts, or usage limits.
+</details>
+
+<details>
+<summary><b>Are my files uploaded anywhere?</b></summary>
+
+No. Every tool processes files on your own computer. The only internet use is: a one-time model download for the speech, background-removal and text-reading tools; the web scraper fetching the pages you ask for; and the summarizer talking to the Ollama app *on your own computer*. See [SECURITY.md](SECURITY.md) for details.
+</details>
+
+<details>
+<summary><b>Will it change or delete my original files?</b></summary>
+
+No tool ever deletes anything. Most tools only read your files and write results to a separate folder. The two that move or rename files (Bulk File Renamer and Duplicate File Finder) show a preview, ask before doing anything, and can undo with `--undo`.
+</details>
+
+<details>
+<summary><b>Will it work on my work laptop?</b></summary>
+
+Usually, if you're allowed to install Python. Some company networks block downloads from GitHub or Hugging Face — if a tool can't download its model, it tells you, and you can ask IT or try on another network once. After that, the tools work offline.
+</details>
+
+<details>
+<summary><b>What kind of computer do I need?</b></summary>
+
+Windows 10/11, macOS, or Linux with Python 3.10 or newer. The simple tools run on anything. For the AI tools, 8 GB of memory is recommended, plus about 2–3 GB of free disk space for the models (the meeting summarizer's model alone is about 2 GB).
+</details>
+
+<details>
+<summary><b>How accurate are the AI tools?</b></summary>
+
+Very good for clear audio, clean scans and photos with one obvious subject — but not perfect. Always proofread names, numbers and action items before sharing. Each guide explains how to get better results (for example, choosing a larger speech model).
+</details>
+
+<details>
+<summary><b>Can I use it for my business?</b></summary>
+
+Yes. The MIT license allows personal and commercial use. Please respect websites' terms when using the web scraper.
+</details>
+
+<details>
+<summary><b>How do I update to a new version?</b></summary>
+
+Download the latest release and unzip it. Your own files live in the tools' folders (like `input_images/`), so copy any you still need into the new folder. If you used Git: `git pull`.
+</details>
+
+<details>
+<summary><b>Something went wrong. What now?</b></summary>
+
+Check [Troubleshooting](#10-troubleshooting) and the bottom of the tool's guide. Still stuck? [Open an issue](https://github.com/kapoorraghav-cmd/niche-automation-script-hub/issues/new/choose) and paste what the terminal printed — no question is too basic.
+</details>
+
+---
+
+## 8. Project folder layout
 
 ```text
 niche-automation-script-hub/
-├── README.md                  ← you are here
-├── image_compressor.py        ← the six tools
-├── excel_cleaner.py
-├── pdf_extractor.py
-├── audio_transcriber.py
-├── bulk_renamer.py
-├── web_scraper.py
-├── requirements.txt           ← libraries the tools need
-├── requirements-dev.txt       ← extra libraries for tests and screenshots
+├── Start (Windows).bat          ← double-click to start (Windows)
+├── Start (Mac).command          ← double-click to start (Mac)
+├── start.sh                     ← run to start (Linux)
+├── start.py                     ← the "Start here" menu
+├── image_compressor.py, …       ← the 13 tools, one script each
+├── requirements.txt             ← libraries the tools need
+├── requirements-dev.txt         ← extra libraries for tests and screenshots
 ├── docs/
-│   ├── tools/                 ← one guide per tool
-│   ├── screenshots/           ← real terminal output, rebuilt by make_screenshots.py
-│   └── assets/                ← banner and before/after pictures
-├── tests/                     ← automated checks for every tool
-├── input_images/, input_pdfs/, …   ← where you drop your files
-└── optimized_images/, transcripts/, …   ← where results appear
+│   ├── tools/                   ← one guide per tool
+│   ├── screenshots/, gifs/      ← real terminal output, rebuilt by scripts
+│   └── assets/                  ← banner and before/after pictures
+├── tests/                       ← automated checks for every tool
+├── input_images/, input_pdfs/, …       ← where you drop your files
+└── optimized_images/, transcripts/, …  ← where results appear
 ```
 
 The empty input/output folders are kept in Git with tiny `.gitkeep` files. Your own photos, spreadsheets, recordings, and reading lists stay on your computer only (see `.gitignore`).
 
 ---
 
-## 8. Safe tips for non-developers
+## 9. Safe tips for non-developers
 
-- **Originals stay untouched.** Every tool writes to its own output folder — except the Bulk File Renamer, which previews every change, asks first, and can undo.
-- **Your files stay private.** Nothing you process is uploaded. Even the transcriber runs on your own computer.
+- **Originals stay untouched.** Every tool writes to its own output folder — except the Bulk File Renamer and Duplicate File Finder, which preview every change, ask first, never delete, and can undo.
+- **Your files stay private.** Nothing you process is uploaded.
 - **Keep a backup** of important files before batch-processing anything.
 - **Close files** in Excel, Photos, or your PDF reader before processing them.
+- **Proofread AI output** (transcripts, scanned text, meeting notes) before sharing it.
 - **Stop anytime** with `Ctrl + C` in the terminal.
 - **Don’t paste random commands** from strangers. Only use commands from this README (or people you trust).
-- **Stay in the project folder** (and keep `.venv` activated) before running `pip install` or a tool.
 
 ---
 
-## 9. Troubleshooting
+## 10. Troubleshooting
 
 | Problem | What to try |
 |---------|-------------|
-| `'python' is not recognized` | Reinstall Python and check **Add to PATH**. Or try `python3`. Open a **new** terminal after installing. |
-| `No module named ...` | You haven't installed the libraries yet, or `.venv` isn't activated. Activate it (Step E), then `pip install -r requirements.txt` |
+| Double-clicking the launcher does nothing / flashes | Install Python first ([Step A](#step-a--install-python)). On Windows, reinstall and tick **Add python.exe to PATH** |
+| "Windows protected your PC" | Click **More info → Run anyway** |
+| Mac: "can't be opened because it is from an unidentified developer" | Right-click → **Open** → **Open**, or **System Settings → Privacy & Security → Open Anyway** |
+| `'python' is not recognized` | Reinstall Python and check **Add to PATH**. Or try `python3`. Open a **new** terminal after installing |
+| `No module named ...` | Use the menu (it installs what's needed), or activate `.venv` (Step E) and run `pip install -r requirements.txt` |
 | `No such file or directory: 'image_compressor.py'` | Your terminal isn't in the project folder. Go back to Step D |
 | A tool says it found no files | Put the files **directly** into its input folder, not in a subfolder |
+| A model download fails | Check your internet connection; work networks sometimes block it — try another network once |
 | PowerShell won’t activate `.venv` | `Set-ExecutionPolicy -Scope CurrentUser RemoteSigned`, then activate again |
 | Permission / “access denied” | Close the file in the program that has it open, then try again |
 
-Tool-specific problems are covered at the bottom of each [tool guide](#2-the-tools). Still stuck? [Open an issue](https://github.com/kapoorraghav-cmd/niche-automation-script-hub/issues/new/choose) and paste what the terminal printed.
+Tool-specific problems are covered at the bottom of each [tool guide](#2-the-tools). Still stuck? [Open an issue](https://github.com/kapoorraghav-cmd/niche-automation-script-hub/issues/new/choose) or ask in [Discussions](https://github.com/kapoorraghav-cmd/niche-automation-script-hub/discussions).
 
 ---
 
-## 10. Contributing
+## 11. Contributing
 
 Ideas and improvements are welcome — especially from people who don't code:
 
 - 💡 [Suggest a new tool](https://github.com/kapoorraghav-cmd/niche-automation-script-hub/issues/new?template=new_tool_idea.yml) — just describe the boring task.
 - 🐞 [Report a problem](https://github.com/kapoorraghav-cmd/niche-automation-script-hub/issues/new?template=bug_report.yml)
-- 🛠️ Build a tool — see [CONTRIBUTING.md](CONTRIBUTING.md) for the checklist every tool follows.
+- 💬 [Ask a question or share how you use it](https://github.com/kapoorraghav-cmd/niche-automation-script-hub/discussions)
+- 🛠️ Build a tool — see [CONTRIBUTING.md](CONTRIBUTING.md) for the checklist every tool follows. Please read our [Code of Conduct](CODE_OF_CONDUCT.md).
 
 ### Running the tests
 
-The tests create sample photos, spreadsheets, PDFs, recordings, and web pages in a temporary folder, run each tool on them, and check the results. They never touch your own files.
+The tests create sample photos, spreadsheets, PDFs, recordings, videos and web pages in a temporary folder, run each tool on them, and check the results. They never touch your own files.
 
 ```bash
 pip install -r requirements-dev.txt
 python -m pytest
 ```
 
-You should see a line like `130 passed`. The same tests run automatically on GitHub (Windows, Mac, and Linux) every time a change is pushed — that's what the green **Tests** badge at the top of this page shows.
+You should see a line like `351 passed`. The same tests run automatically on GitHub (Windows, Mac, and Linux) every time a change is pushed — that's what the green **Tests** badge at the top of this page shows. Dependabot checks weekly for library updates, and the tests confirm each one is safe before it's merged.
 
-To rebuild the screenshots after changing a tool's messages: `python docs/make_screenshots.py`
+To rebuild the screenshots and demo GIFs after changing a tool's messages: `python docs/make_screenshots.py` and `python docs/make_gifs.py`.
 
 ---
 
-## 11. License
+## 12. License
 
 Released under the [MIT License](LICENSE). You are free to use, copy, modify, and share these scripts, including for commercial work, as long as the license notice stays with them.

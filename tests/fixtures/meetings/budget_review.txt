@@ -1,0 +1,27 @@
+Transcript of: budget_review.m4a
+Length:        1 min 4 sec
+Language:      English (detected automatically, 98% sure)
+Speech model:  base
+Created on:    2026-03-02 09:41
+
+------------------------------------------------------------
+WITH TIMESTAMPS (hours:minutes:seconds into the recording)
+------------------------------------------------------------
+
+[00:00:00] Thanks for joining the quarterly budget review.
+[00:00:04] Travel spending is twelve percent over plan, mostly because of the trade fair in Lyon.
+[00:00:12] We agreed to freeze new travel bookings until the end of the quarter.
+[00:00:19] Maya, can you send the updated forecast to finance by Friday?
+[00:00:24] Yes, I will send it on Friday morning.
+[00:00:33] Someone also needs to check the software licences we no longer use.
+[00:00:41] We still don't know whether the new office chairs come out of this budget or next year's.
+
+------------------------------------------------------------
+PLAIN TEXT (ready to copy into an email or document)
+------------------------------------------------------------
+
+Thanks for joining the quarterly budget review. Travel spending is twelve percent over plan, mostly because of the trade fair in Lyon. We agreed to freeze new travel bookings until the end of the quarter.
+
+Maya, can you send the updated forecast to finance by Friday? Yes, I will send it on Friday morning.
+
+Someone also needs to check the software licences we no longer use. We still don't know whether the new office chairs come out of this budget or next year's.

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="640" viewBox="0 0 1280 640">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0f172a"/>
+      <stop offset="0.55" stop-color="#1e293b"/>
+      <stop offset="1" stop-color="#0c4a6e"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#38bdf8"/>
+      <stop offset="1" stop-color="#34d399"/>
+    </linearGradient>
+    <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M32 0H0V32" fill="none" stroke="#ffffff" stroke-opacity="0.04" stroke-width="1"/>
+    </pattern>
+    <style>
+      .title { font: 700 66px Helvetica, Arial, sans-serif; fill: #f8fafc; }
+      .sub { font: 400 28px Helvetica, Arial, sans-serif; fill: #cbd5e1; }
+      .pill { font: 600 21px Helvetica, Arial, sans-serif; fill: #e2e8f0; }
+      .foot { font: 500 22px Menlo, Consolas, monospace; fill: #94a3b8; }
+      .badge { font: 700 20px Helvetica, Arial, sans-serif; fill: #0f172a; }
+    </style>
+  </defs>
+
+  <rect width="1280" height="640" fill="url(#bg)"/>
+  <rect width="1280" height="640" fill="url(#grid)"/>
+  <rect x="80" y="80" width="96" height="7" rx="3.5" fill="url(#accent)"/>
+
+  <text x="80" y="168" class="title">Niche Automation Script Hub</text>
+  <text x="80" y="218" class="sub">Free Python tools that automate boring office work.</text>
+  <text x="80" y="256" class="sub">Private: everything runs on your own computer. No uploads.</text>
+
+  <g transform="translate(80 300)">
+    <rect width="232" height="40" rx="20" fill="url(#accent)"/>
+    <text x="116" y="27" class="badge" text-anchor="middle">13 tools &#183; no coding</text>
+  </g>
+
+  <!-- Tool pills: three rows -->
+  <g class="pill">
+    <g transform="translate(80 372)">
+      <rect width="250" height="50" rx="25" fill="#ffffff" fill-opacity="0.07" stroke="#38bdf8" stroke-opacity="0.6"/>
+      <text x="125" y="32" text-anchor="middle">Compress images</text>
+    </g>
+    <g transform="translate(346 372)">
+      <rect width="290" height="50" rx="25" fill="#ffffff" fill-opacity="0.07" stroke="#38bdf8" stroke-opacity="0.6"/>
+      <text x="145" y="32" text-anchor="middle">Remove backgrounds</text>
+    </g>
+    <g transform="translate(652 372)">
+      <rect width="250" height="50" rx="25" fill="#ffffff" fill-opacity="0.07" stroke="#34d399" stroke-opacity="0.6"/>
+      <text x="125" y="32" text-anchor="middle">Clean spreadsheets</text>
+    </g>
+    <g transform="translate(918 372)">
+      <rect width="282" height="50" rx="25" fill="#ffffff" fill-opacity="0.07" stroke="#34d399" stroke-opacity="0.6"/>
+      <text x="141" y="32" text-anchor="middle">Merge spreadsheets</text>
+    </g>
+
+    <g transform="translate(80 438)">
+      <rect width="250" height="50" rx="25" fill="#ffffff" fill-opacity="0.07" stroke="#f472b6" stroke-opacity="0.6"/>
+      <text x="125" y="32" text-anchor="middle">Extract &amp; read PDFs</text>
+    </g>
+    <g transform="translate(346 438)">
+      <rect width="290" height="50" rx="25" fill="#ffffff" fill-opacity="0.07" stroke="#f472b6" stroke-opacity="0.6"/>
+      <text x="145" y="32" text-anchor="middle">Mail-merge certificates</text>
+    </g>
+    <g transform="translate(652 438)">
+      <rect width="250" height="50" rx="25" fill="#ffffff" fill-opacity="0.07" stroke="#fbbf24" stroke-opacity="0.6"/>
+      <text x="125" y="32" text-anchor="middle">Transcribe audio</text>
+    </g>
+    <g transform="translate(918 438)">
+      <rect width="282" height="50" rx="25" fill="#ffffff" fill-opacity="0.07" stroke="#fbbf24" stroke-opacity="0.6"/>
+      <text x="141" y="32" text-anchor="middle">Summarize meetings</text>
+    </g>
+
+    <g transform="translate(80 504)">
+      <rect width="250" height="50" rx="25" fill="#ffffff" fill-opacity="0.07" stroke="#fbbf24" stroke-opacity="0.6"/>
+      <text x="125" y="32" text-anchor="middle">Make subtitles</text>
+    </g>
+    <g transform="translate(346 504)">
+      <rect width="290" height="50" rx="25" fill="#ffffff" fill-opacity="0.07" stroke="#a78bfa" stroke-opacity="0.6"/>
+      <text x="145" y="32" text-anchor="middle">Find duplicate files</text>
+    </g>
+    <g transform="translate(652 504)">
+      <rect width="250" height="50" rx="25" fill="#ffffff" fill-opacity="0.07" stroke="#a78bfa" stroke-opacity="0.6"/>
+      <text x="125" y="32" text-anchor="middle">Bulk rename files</text>
+    </g>
+    <g transform="translate(918 504)">
+      <rect width="282" height="50" rx="25" fill="#ffffff" fill-opacity="0.07" stroke="#fb923c" stroke-opacity="0.6"/>
+      <text x="141" y="32" text-anchor="middle">Save web articles</text>
+    </g>
+  </g>
+
+  <text x="80" y="600" class="foot">github.com/kapoorraghav-cmd/niche-automation-script-hub</text>
+</svg>

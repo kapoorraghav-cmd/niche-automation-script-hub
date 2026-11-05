@@ -1,0 +1,19 @@
+# Dependabot checks every week for new versions of the libraries the tools use
+# and opens a pull request for each update. The automated tests run on every
+# pull request, so a red ✗ means "this new version breaks something — don't merge".
+version: 2
+updates:
+  - package-ecosystem: "pip"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 5
+    groups:
+      # Bundle small, low-risk updates into one pull request to keep things tidy
+      minor-and-patch:
+        update-types: ["minor", "patch"]
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "monthly"
