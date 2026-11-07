@@ -65,14 +65,22 @@ if /i "%PROCESSOR_ARCHITECTURE%"=="ARM64" (
     set "UV_SHA256=505d9e65e7692bac3ddf98c66754aa26c5050c409c184af30a881a0a72cc85e3"
 )
 set "UV_ZIP_URL=https://github.com/astral-sh/uv/releases/download/%UV_VERSION%/uv-%UV_ARCH%-pc-windows-msvc.zip"
+set "UV_ZIP=%TEMP%\niche-hub-uv.zip"
+REM Only built-in .NET features are used, so this works on every Windows 10/11
+REM (some PowerShell add-on commands go missing on computers with PowerShell 7)
+set "PSModulePath="
 powershell -NoProfile -ExecutionPolicy Bypass -Command ^
   "$ErrorActionPreference = 'Stop';" ^
   "[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12;" ^
-  "$zip = Join-Path $env:TEMP 'niche-hub-uv.zip';" ^
-  "Invoke-WebRequest -UseBasicParsing $env:UV_ZIP_URL -OutFile $zip;" ^
-  "if ((Get-FileHash $zip -Algorithm SHA256).Hash -ne $env:UV_SHA256) { Remove-Item $zip; throw 'The download did not match its fingerprint.' };" ^
-  "Expand-Archive -Force $zip $env:UV_INSTALL_DIR;" ^
-  "Remove-Item $zip"
+  "(New-Object Net.WebClient).DownloadFile($env:UV_ZIP_URL, $env:UV_ZIP);" ^
+  "$stream = [IO.File]::OpenRead($env:UV_ZIP);" ^
+  "$hash = [BitConverter]::ToString([Security.Cryptography.SHA256]::Create().ComputeHash($stream)).Replace('-', '');" ^
+  "$stream.Close();" ^
+  "if ($hash -ne $env:UV_SHA256) { [IO.File]::Delete($env:UV_ZIP); throw 'The download did not match its fingerprint.' };" ^
+  "if ([IO.Directory]::Exists($env:UV_INSTALL_DIR)) { [IO.Directory]::Delete($env:UV_INSTALL_DIR, $true) };" ^
+  "Add-Type -AssemblyName System.IO.Compression.FileSystem;" ^
+  "[IO.Compression.ZipFile]::ExtractToDirectory($env:UV_ZIP, $env:UV_INSTALL_DIR);" ^
+  "[IO.File]::Delete($env:UV_ZIP)"
 exit /b 0
 
 :use_installed_python
