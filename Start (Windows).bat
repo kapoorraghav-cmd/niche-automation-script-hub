@@ -30,9 +30,7 @@ echo.
 echo  Setting up for the first time. This needs internet and takes about a minute...
 echo.
 
-if not exist "%UV%" (
-    powershell -NoProfile -ExecutionPolicy Bypass -Command "irm https://astral.sh/uv/%UV_VERSION%/install.ps1 | iex" >nul
-)
+if not exist "%UV%" call :download_uv
 if exist "%UV%" (
     "%UV%" venv --seed --python 3.12 ".venv"
 )
@@ -55,6 +53,26 @@ if not exist ".venv\Scripts\python.exe" (
 ".venv\Scripts\python.exe" start.py
 echo.
 pause
+exit /b 0
+
+:download_uv
+REM Download uv's official Windows release from GitHub and check its
+REM fingerprint (SHA-256) before unpacking it into .uv
+set "UV_ARCH=x86_64"
+set "UV_SHA256=0cdc5b38fe5a8168ed6a25814f5ba43c21d313dd3187314fccb37b7cec46e021"
+if /i "%PROCESSOR_ARCHITECTURE%"=="ARM64" (
+    set "UV_ARCH=aarch64"
+    set "UV_SHA256=505d9e65e7692bac3ddf98c66754aa26c5050c409c184af30a881a0a72cc85e3"
+)
+set "UV_ZIP_URL=https://github.com/astral-sh/uv/releases/download/%UV_VERSION%/uv-%UV_ARCH%-pc-windows-msvc.zip"
+powershell -NoProfile -ExecutionPolicy Bypass -Command ^
+  "$ErrorActionPreference = 'Stop';" ^
+  "[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12;" ^
+  "$zip = Join-Path $env:TEMP 'niche-hub-uv.zip';" ^
+  "Invoke-WebRequest -UseBasicParsing $env:UV_ZIP_URL -OutFile $zip;" ^
+  "if ((Get-FileHash $zip -Algorithm SHA256).Hash -ne $env:UV_SHA256) { Remove-Item $zip; throw 'The download did not match its fingerprint.' };" ^
+  "Expand-Archive -Force $zip $env:UV_INSTALL_DIR;" ^
+  "Remove-Item $zip"
 exit /b 0
 
 :use_installed_python
