@@ -11,7 +11,7 @@ Pillow>=10.0.0,<13
 
 # Spreadsheet Cleaner (excel_cleaner.py)
 pandas>=2.0.0,<3
-openpyxl>=3.1.0,<4
+openpyxl>=3.1.5,<4
 xlrd>=2.0.1,<3
 
 # PDF Text & Image Extractor (pdf_extractor.py)
@@ -23,7 +23,7 @@ pypdf>=4.0,<7
 # Includes its own audio reader (av), so ffmpeg is not needed.
 # Newer versions of av removed an option faster-whisper still uses, so av is
 # capped at the last version known to work with it.
-faster-whisper>=1.1,<2
+faster-whisper>=1.2.1,<2
 av>=11,<16
 
 # Website-to-Markdown Scraper (web_scraper.py)

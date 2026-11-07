@@ -2,6 +2,6 @@
 # (not needed to use the tools)
 #     pip install -r requirements-dev.txt
 -r requirements.txt
-pytest>=7.0,<9
+pytest>=9.2.0,<10
 fpdf2>=2.7.6,<3
 rich>=13.0,<16

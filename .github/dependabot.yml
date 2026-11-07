@@ -1,6 +1,6 @@
 # Dependabot checks every week for new versions of the libraries the tools use
-# and opens a pull request for each update. The automated tests run on every
-# pull request, so a red ✗ means "this new version breaks something — don't merge".
+# and opens a pull request when an update is needed. The automated tests run on
+# every pull request, so a red ✗ means "this new version breaks something — don't merge".
 version: 2
 updates:
   - package-ecosystem: "pip"
@@ -8,10 +8,19 @@ updates:
     schedule:
       interval: "weekly"
     open-pull-requests-limit: 5
+    # Only propose an update when a new version falls OUTSIDE the range
+    # requirements.txt already allows (pip installs newer versions inside the
+    # range by itself, so raising the minimum every week is just noise).
+    versioning-strategy: "increase-if-necessary"
     groups:
       # Bundle small, low-risk updates into one pull request to keep things tidy
       minor-and-patch:
         update-types: ["minor", "patch"]
+    ignore:
+      # Pillow 13 needs Python 3.11+, and the hub still supports Python 3.10.
+      # Remove this when the README's minimum Python version goes up.
+      - dependency-name: "pillow"
+        versions: [">=13"]
 
   - package-ecosystem: "github-actions"
     directory: "/"
