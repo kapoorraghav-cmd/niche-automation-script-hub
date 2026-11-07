@@ -5,6 +5,8 @@
 # ---------------------------------------------------------------------------
 
 # --- Virtual environments (never upload these) ---
+# .uv holds the launchers' private copy of uv and Python
+.uv/
 .venv/
 venv/
 env/

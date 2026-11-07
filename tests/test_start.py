@@ -73,6 +73,18 @@ def test_mac_style_escaped_spaces_are_cleaned():
     assert start.clean_dragged_path("/Users/me/My\\ Files") == "/Users/me/My Files"
 
 
+def test_installs_use_the_launchers_uv_when_present(tmp_path, monkeypatch):
+    monkeypatch.setattr(start, "PROJECT_FOLDER", tmp_path)
+    assert start.install_command(["Pillow>=10"])[:3] == [sys.executable, "-m", "pip"]
+
+    uv = tmp_path / ".uv" / ("uv.exe" if sys.platform.startswith("win") else "uv")
+    uv.parent.mkdir()
+    uv.write_text("")
+    command = start.install_command(["Pillow>=10"])
+    assert command[:3] == [str(uv), "pip", "install"]
+    assert command[3:] == ["--python", sys.executable, "Pillow>=10"]
+
+
 def test_menu_lists_every_tool_and_quits(workspace):
     result = run_menu(workspace, ["q"])
 

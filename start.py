@@ -202,6 +202,24 @@ def missing_modules(tool: Tool) -> list:
     return [name for name in tool.modules if importlib.util.find_spec(name) is None]
 
 
+def bundled_uv() -> Optional[Path]:
+    """The copy of uv the double-click launchers download into .uv, if any."""
+    name = "uv.exe" if sys.platform.startswith("win") else "uv"
+    path = PROJECT_FOLDER / ".uv" / name
+    return path if path.exists() else None
+
+
+def install_command(specs: list) -> list:
+    """
+    Use the launchers' uv when it's there (it installs several times faster
+    than pip); otherwise use Python's own installer, pip.
+    """
+    uv = bundled_uv()
+    if uv:
+        return [str(uv), "pip", "install", "--python", sys.executable, *specs]
+    return [sys.executable, "-m", "pip", "install", *specs]
+
+
 def install_packages(tool: Tool) -> bool:
     """Install the tool's libraries (with the versions from requirements.txt)."""
     known = requirement_lines()
@@ -210,7 +228,7 @@ def install_packages(tool: Tool) -> bool:
     print(f"Installing: {', '.join(tool.packages)}")
     print("This happens only once and can take a few minutes. Please wait...")
     print()
-    result = subprocess.run([sys.executable, "-m", "pip", "install", *specs])
+    result = subprocess.run(install_command(specs))
     if result.returncode != 0:
         print()
         print("⚠️  The installation didn't finish. Check your internet connection")

@@ -30,3 +30,53 @@ jobs:
 
       - name: Run tests
         run: python -m pytest -v
+
+  # Does exactly what a new user does: unzip a fresh copy, double-click the
+  # launcher (which downloads uv and a private Python), pick the Image
+  # Compressor, let the menu install its add-on, run it, and quit.
+  launchers:
+    name: Double-click launcher · ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    env:
+      NICHE_HUB_NO_OPEN: "1"
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Make a fresh copy, like the downloaded ZIP
+        shell: bash
+        run: |
+          mkdir -p "$RUNNER_TEMP/Fresh Hub"
+          git archive HEAD | tar -x -C "$RUNNER_TEMP/Fresh Hub"
+
+      - name: Run Start (Windows).bat like a new user
+        if: runner.os == 'Windows'
+        shell: pwsh
+        working-directory: ${{ runner.temp }}/Fresh Hub
+        run: |
+          "1`ny`n`n`nq`n`n" | cmd /c '"Start (Windows).bat"' | Tee-Object -FilePath launcher.log
+          $log = Get-Content launcher.log -Raw
+          if (-not (Test-Path ".uv\uv.exe")) { throw "uv was not downloaded" }
+          if (-not (Test-Path ".uv\python")) { throw "the private Python was not downloaded" }
+          foreach ($text in "Start here", "Installing: Pillow", "Tool: Image Compressor", "Bye!") {
+            if ($log -notmatch [regex]::Escape($text)) { throw "Missing in output: $text" }
+          }
+
+      - name: Run the Mac / Linux launcher like a new user
+        if: runner.os != 'Windows'
+        shell: bash
+        working-directory: ${{ runner.temp }}/Fresh Hub
+        run: |
+          script="Start (Mac).command"
+          if [ "$RUNNER_OS" = "Linux" ]; then script="start.sh"; fi
+          # A bare environment, so the launcher can't lean on the runner's Python
+          printf '1\ny\n\n\nq\n\n' | env -i HOME="$HOME" PATH=/usr/bin:/bin TERM=xterm NICHE_HUB_NO_OPEN=1 bash "./$script" | tee launcher.log
+          test -x .uv/uv
+          test -d .uv/python
+          for text in "Start here" "Installing: Pillow" "Tool: Image Compressor" "Bye!"; do
+            grep -qF "$text" launcher.log || { echo "Missing in output: $text"; exit 1; }
+          done
