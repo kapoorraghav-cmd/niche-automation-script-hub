@@ -53,4 +53,4 @@ fi
 
 .venv/bin/python start.py
 echo ""
-read -r -p "Press Enter to close this window..."
+read -r -p "Press Enter to close this window..." || true

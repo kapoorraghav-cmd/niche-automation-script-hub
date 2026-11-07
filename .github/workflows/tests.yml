@@ -50,8 +50,9 @@ jobs:
       - name: Make a fresh copy, like the downloaded ZIP
         shell: bash
         run: |
+          git archive --format=tar -o "$RUNNER_TEMP/hub.tar" HEAD
           mkdir -p "$RUNNER_TEMP/Fresh Hub"
-          git archive HEAD | tar -x -C "$RUNNER_TEMP/Fresh Hub"
+          cd "$RUNNER_TEMP/Fresh Hub" && tar -xf ../hub.tar
 
       - name: Run Start (Windows).bat like a new user
         if: runner.os == 'Windows'
