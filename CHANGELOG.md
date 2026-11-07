@@ -2,6 +2,20 @@
 
 All notable changes to this project are listed here.
 
+## [1.1.0] — 2026-11-07
+
+### No Python install needed
+- The double-click launchers now set everything up by themselves: on first run they download [uv](https://docs.astral.sh/uv/) and a private copy of Python into the hub's folder (about 40 MB). Nothing else on the computer changes.
+- The Windows launcher checks the download's SHA-256 fingerprint before using it.
+- If the download is blocked, the launchers fall back to an installed Python, as before.
+- Moving the hub's folder no longer breaks it — the launcher notices and rebuilds in seconds.
+- The menu installs each tool's libraries with uv, which is several times faster.
+- A new automated check runs every launcher from a fresh copy on Windows, macOS and Linux, exactly like a new user.
+
+### Updated
+- Library updates: pandas 3 (Python 3.11+), pytest 9.2, openpyxl 3.1.5, faster-whisper 1.2.1, and newer GitHub Actions.
+- Dependabot now only proposes updates that fall outside the allowed versions, and skips versions known to break the hub (Pillow 13 while Python 3.10 is supported; av 16+).
+
 ## [1.0.0] — 2026-11-05
 
 The first full release: 13 tools, a double-click menu, and a test suite that runs on Windows, macOS and Linux.
@@ -29,4 +43,5 @@ The first full release: 13 tools, a double-click menu, and a test suite that run
 - A guide for every tool, with screenshots and demo GIFs made from real runs.
 - Issue forms for tool ideas and bug reports, a contributing guide, Code of Conduct, Security policy and Dependabot.
 
+[1.1.0]: https://github.com/kapoorraghav-cmd/niche-automation-script-hub/releases/tag/v1.1.0
 [1.0.0]: https://github.com/kapoorraghav-cmd/niche-automation-script-hub/releases/tag/v1.0.0

@@ -135,9 +135,10 @@ Every tool's guide has more screenshots, all made from real runs.
 
 ## 4. Start here (no terminal needed)
 
-1. **Install Python** (one time) — see [Step A](#step-a--install-python) below. On Windows, tick **"Add python.exe to PATH"**.
-2. **Download the hub** — click [⬇️ Download](https://github.com/kapoorraghav-cmd/niche-automation-script-hub/releases/latest), then the `.zip` file under *Assets*. Unzip it somewhere easy, like your Desktop.
-3. **Double-click the launcher** inside the folder:
+**You don't need to install Python** — the launcher sets everything up by itself.
+
+1. **Download the hub** — click [⬇️ Download](https://github.com/kapoorraghav-cmd/niche-automation-script-hub/releases/latest), then the `.zip` file under *Assets*. Unzip it somewhere easy, like your Desktop.
+2. **Double-click the launcher** inside the folder:
 
    | Your computer | Double-click |
    |---|---|
@@ -145,7 +146,10 @@ Every tool's guide has more screenshots, all made from real runs.
    | Mac | `Start (Mac).command` |
    | Linux | `start.sh` (or run `./start.sh`) |
 
-4. **Pick a tool** from the menu. It installs what that tool needs (first time only), opens the folder for your files, runs the tool, and offers to open the results.
+   The **first time**, it needs internet for about a minute: it downloads [uv](https://docs.astral.sh/uv/) (a free, widely used Python installer) and a private copy of Python, about 40 MB in total. Everything is kept **inside the hub's folder** — nothing else on your computer changes, and deleting the folder removes it all.
+3. **Pick a tool** from the menu. It installs what that tool needs (first time only), opens the folder for your files, runs the tool, and offers to open the results.
+
+If the automatic setup can't download (for example, a strict work network), the launcher uses Python from [python.org](https://www.python.org/downloads/) instead, if it's installed — see [Step A](#step-a--install-python).
 
 > **"Windows protected your PC"?** Click **More info → Run anyway**. Windows sometimes shows this for scripts downloaded from the internet.
 >
@@ -155,7 +159,7 @@ Every tool's guide has more screenshots, all made from real runs.
 
 ## 5. Complete beginner setup (terminal)
 
-Prefer typing commands, or the launcher didn't work? Follow the section for **your** computer. Take your time — each step is written for someone who has never used Python. You only do this once.
+Prefer typing commands, or the launcher couldn't set itself up (for example, on a work network that blocks downloads)? Follow the section for **your** computer. Take your time — each step is written for someone who has never used Python. You only do this once.
 
 ### Step A — Install Python
 
@@ -331,7 +335,13 @@ Each [tool guide](#2-the-tools) explains its options, what it changes, and what 
 <details>
 <summary><b>Do I need to know how to code?</b></summary>
 
-No. Install Python once, double-click the launcher, and pick tools from a numbered menu. The code is there if you're curious — every script is heavily commented in plain English — but you never have to touch it.
+No. Double-click the launcher and pick tools from a numbered menu. The code is there if you're curious — every script is heavily commented in plain English — but you never have to touch it.
+</details>
+
+<details>
+<summary><b>Do I need to install Python?</b></summary>
+
+No. The first time you double-click the launcher, it downloads [uv](https://docs.astral.sh/uv/) and a private copy of Python (about 40 MB) into a hidden `.uv` folder inside the hub. It doesn't touch any other Python on your computer, and deleting the hub's folder removes everything. If you move the folder, the launcher notices and quickly sets itself up again.
 </details>
 
 <details>
@@ -355,13 +365,13 @@ No tool ever deletes anything. Most tools only read your files and write results
 <details>
 <summary><b>Will it work on my work laptop?</b></summary>
 
-Usually, if you're allowed to install Python. Some company networks block downloads from GitHub or Hugging Face — if a tool can't download its model, it tells you, and you can ask IT or try on another network once. After that, the tools work offline.
+Usually — nothing needs administrator rights, because everything installs inside the hub's folder. Some company networks block downloads from GitHub or Hugging Face. If the first-time setup or a tool's model download is blocked, you'll get a clear message; ask IT or run it once on another network. After that, the tools work offline.
 </details>
 
 <details>
 <summary><b>What kind of computer do I need?</b></summary>
 
-Windows 10/11, macOS, or Linux with Python 3.10 or newer. The simple tools run on anything. For the AI tools, 8 GB of memory is recommended, plus about 2–3 GB of free disk space for the models (the meeting summarizer's model alone is about 2 GB).
+Windows 10/11, macOS, or Linux. The launcher brings its own Python; if you use the terminal instead, you need Python 3.10 or newer. The simple tools run on anything. For the AI tools, 8 GB of memory is recommended, plus about 2–3 GB of free disk space for the models (the meeting summarizer's model alone is about 2 GB).
 </details>
 
 <details>
@@ -430,7 +440,8 @@ The empty input/output folders are kept in Git with tiny `.gitkeep` files. Your 
 
 | Problem | What to try |
 |---------|-------------|
-| Double-clicking the launcher does nothing / flashes | Install Python first ([Step A](#step-a--install-python)). On Windows, reinstall and tick **Add python.exe to PATH** |
+| Launcher says "the automatic setup did not work" | Check your internet connection. On a work network that blocks downloads, install Python from python.org ([Step A](#step-a--install-python)) and double-click again |
+| Launcher window flashes and closes | Right-click the launcher → **Open** (Mac), or run it from a terminal to see the message, and [open an issue](https://github.com/kapoorraghav-cmd/niche-automation-script-hub/issues/new/choose) with what it says |
 | "Windows protected your PC" | Click **More info → Run anyway** |
 | Mac: "can't be opened because it is from an unidentified developer" | Right-click → **Open** → **Open**, or **System Settings → Privacy & Security → Open Anyway** |
 | `'python' is not recognized` | Reinstall Python and check **Add to PATH**. Or try `python3`. Open a **new** terminal after installing |
