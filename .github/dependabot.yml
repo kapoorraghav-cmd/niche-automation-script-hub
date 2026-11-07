@@ -21,6 +21,10 @@ updates:
       # Remove this when the README's minimum Python version goes up.
       - dependency-name: "pillow"
         versions: [">=13"]
+      # av 16+ removed an option faster-whisper still uses (the transcriber
+      # and subtitle maker break). Remove this once faster-whisper supports it.
+      - dependency-name: "av"
+        versions: [">=16"]
 
   - package-ecosystem: "github-actions"
     directory: "/"
